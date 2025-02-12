@@ -1,5 +1,5 @@
 module "mysql_sg" {
-    source = "git::https://github.com/Lingaiahthammisetti/5.12.terraform-aws-securitygroup.git?ref=main"
+    source = "git::https://github.com/Lingaiahthammisetti/13.1.2.terraform-aws-security-group-roboshop.git?ref=main"
     project_name = var.project_name
     environment = var.environment
     sg_name = "mysql"
@@ -9,7 +9,7 @@ module "mysql_sg" {
 }
 
 module "bastion_sg" {
-    source = "git::https://github.com/Lingaiahthammisetti/5.12.terraform-aws-securitygroup.git?ref=main"
+    source = "git::https://github.com/Lingaiahthammisetti/13.1.2.terraform-aws-security-group-roboshop.git?ref=main"
     project_name = var.project_name
     environment = var.environment
     sg_name = "bastion"
@@ -19,33 +19,33 @@ module "bastion_sg" {
 }
 
 module "node_sg" {
-    source = "git::https://github.com/Lingaiahthammisetti/5.12.terraform-aws-securitygroup.git?ref=main"
+    source = "git::https://github.com/Lingaiahthammisetti/13.1.2.terraform-aws-security-group-roboshop.git?ref=main"
     project_name = var.project_name
     environment = var.environment
     sg_name = "node"
     vpc_id = local.vpc_id
     common_tags = var.common_tags
-    #sg_tags = var.node_sg_tags
+   # sg_tags = var.node_sg_tags
 }
 
 module "eks_control_plane_sg" {
-    source = "git::https://github.com/Lingaiahthammisetti/5.12.terraform-aws-securitygroup.git?ref=main"
+    source = "git::https://github.com/Lingaiahthammisetti/13.1.2.terraform-aws-security-group-roboshop.git?ref=main"
     project_name = var.project_name
     environment = var.environment
     sg_name = "eks-control-plane"
     vpc_id = local.vpc_id
     common_tags = var.common_tags
-    #sg_tags = var.node_sg_tags
+   # sg_tags = var.eks_control_plane_sg
 }
 
 module "ingress_alb_sg" {
-     source = "git::https://github.com/Lingaiahthammisetti/5.12.terraform-aws-securitygroup.git?ref=main"
+    source = "git::https://github.com/Lingaiahthammisetti/13.1.2.terraform-aws-security-group-roboshop.git?ref=main"
     project_name = var.project_name
     environment = var.environment
     sg_name = "ingress-alb"
     vpc_id = local.vpc_id
     common_tags = var.common_tags
-    #sg_tags = var.node_sg_tags
+    #sg_tags = var.ingress_alb_sg
 }
 
 resource "aws_security_group_rule" "ingress_alb_https" {
