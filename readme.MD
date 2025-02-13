@@ -35,6 +35,7 @@ mysql -h roboshop-dev.cbq6ykeg6fh9.us-east-1.rds.amazonaws.com -u root -pRoboSho
 mysql -h roboshop-dev.cbq6ykeg6fh9.us-east-1.rds.amazonaws.com -u root -pRoboShop1 < shipping/db/master-data.sql
 ```
 
+# I have created for my project these urls for RDS database.
 ```
 mysql -h roboshop-dev.cbq6ykeg6fh9.us-east-1.rds.amazonaws.com -u root -pRoboShop1 < 13.14.roboshop-shipping-CI/db/schema.sql
 ```
