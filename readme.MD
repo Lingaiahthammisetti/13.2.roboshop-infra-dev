@@ -18,7 +18,7 @@ We are using bastion as our EKS client, so it will have
 * Make sure MySQL instance allows port no 3306 from bastion
 
 ```
-mysql -h roboshop-dev.czn6yzxlcsiv.us-east-1.rds.amazonaws.com -u root -pRoboShop1
+mysql -h roboshop-dev.cbq6ykeg6fh9.us-east-1.rds.amazonaws.com -u root -pRoboShop1
 ```
 * Clone shipping component into bastion
 ```
@@ -26,14 +26,27 @@ git clone https://github.com/Lingaiahthammisetti/13.14.roboshop-shipping-CI.git
 ```
 * Load the data into mysql
 ```
-mysql -h roboshop-dev.czn6yzxlcsiv.us-east-1.rds.amazonaws.com -u root -pRoboShop1 < shipping/db/schema.sql
+mysql -h roboshop-dev.cbq6ykeg6fh9.us-east-1.rds.amazonaws.com -u root -pRoboShop1 < shipping/db/schema.sql
 ```
 ```
-mysql -h roboshop-dev.czn6yzxlcsiv.us-east-1.rds.amazonaws.com -u root -pRoboShop1 < shipping/db/app-user.sql
+mysql -h roboshop-dev.cbq6ykeg6fh9.us-east-1.rds.amazonaws.com -u root -pRoboShop1 < shipping/db/app-user.sql
 ```
 ```
-mysql -h roboshop-dev.czn6yzxlcsiv.us-east-1.rds.amazonaws.com -u root -pRoboShop1 < shipping/db/master-data.sql
+mysql -h roboshop-dev.cbq6ykeg6fh9.us-east-1.rds.amazonaws.com -u root -pRoboShop1 < shipping/db/master-data.sql
 ```
+
+```
+mysql -h roboshop-dev.cbq6ykeg6fh9.us-east-1.rds.amazonaws.com -u root -pRoboShop1 < 13.14.roboshop-shipping-CI/db/schema.sql
+```
+
+```
+mysql -h roboshop-dev.cbq6ykeg6fh9.us-east-1.rds.amazonaws.com -u root -pRoboShop1 < 13.14.roboshop-shipping-CI/db/app-user.sql
+```
+
+```
+mysql -h roboshop-dev.cbq6ykeg6fh9.us-east-1.rds.amazonaws.com -u root -pRoboShop1 < 13.14.roboshop-shipping-CI/db/master-data.sql
+```
+
 
 ## Target group binding
 * If we are running frontend using normal user it can't bind the port 80. non root privelege user running container are not able to open system ports which are under 1024.
@@ -77,10 +90,10 @@ aws iam create-policy \
 * Create Service account. Replace your account ID.
 ```
 eksctl create iamserviceaccount \
---cluster=expense-dev \
+--cluster=roboshop-dev \
 --namespace=kube-system \
 --name=aws-load-balancer-controller \
---attach-policy-arn=arn:aws:iam::315069654700:policy/AWSLoadBalancerControllerIAMPolicy \
+--attach-policy-arn=arn:aws:iam::730335449147:policy/AWSLoadBalancerControllerIAMPolicy \
 --override-existing-serviceaccounts \
 --region us-east-1 \
 --approve
@@ -93,7 +106,7 @@ helm repo add eks https://aws.github.io/eks-charts
 ```
 
 ```
-helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=expense-dev --set serviceAccount.create=true --set serviceAccount.name=aws-load-balancer-controller
+helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=roboshop-dev --set serviceAccount.create=true --set serviceAccount.name=aws-load-balancer-controller
 ```
 
 * Make sure load balancer pods are running
